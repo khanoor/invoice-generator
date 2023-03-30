@@ -39,6 +39,23 @@ class CreateInvoiceState extends State<CreateInvoice> {
             builder: (context) => InvoiceDetails(item_key: widget.key_value)));
   }
 
+  String currentDate = DateFormat("dd-MM-yyyy").format(DateTime.now());
+  Future<void> PickDate(BuildContext context) async {
+    final DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now().subtract(const Duration(days: 365 * 4)),
+        lastDate: DateTime.now().add(const Duration(days: 90)),
+        builder: (context, child) {
+          return Theme(data: Theme.of(context).copyWith(), child: child!);
+        });
+    if (date != null) {
+      setState(() {
+        currentDate = DateFormat("dd-MM-yyyy").format(date);
+      });
+    }
+  }
+
   TextEditingController customer_name = TextEditingController();
   TextEditingController customer_address = TextEditingController();
 
@@ -74,7 +91,7 @@ class CreateInvoiceState extends State<CreateInvoice> {
               ),
               Padding(
                 padding:
-                    EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 15),
+                    EdgeInsets.only(left: 10, top: 10, right: 10, bottom: 5),
                 child: TextField(
                   controller: customer_address,
                   decoration: InputDecoration(
@@ -82,6 +99,24 @@ class CreateInvoiceState extends State<CreateInvoice> {
                       contentPadding: EdgeInsets.fromLTRB(10, 0, 10, 0)),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(width: 5),
+                  Text("$currentDate"),
+                  IconButton(
+                      onPressed: () {
+                        PickDate(context);
+                      },
+                      icon: Icon(Icons.calendar_month_outlined)),
+                ],
+              ),
+              Divider(
+                height: 1,
+                thickness: 1,
+                color: Colors.black,
+              ),
+              SizedBox(height: 5),
               FittedBox(
                 child: ItemList.isEmpty
                     ? Center(
@@ -160,7 +195,7 @@ class CreateInvoiceState extends State<CreateInvoice> {
                                 DataCell(
                                   Text(ItemList[index]['item_name']),
                                 ),
-                                
+
                                 DataCell(
                                   Text(
                                       "${NumberFormat.currency(symbol: '', decimalDigits: 1, locale: 'Hi').format(num.parse(ItemList[index]['item_price'].toString()))}"),
@@ -186,13 +221,13 @@ class CreateInvoiceState extends State<CreateInvoice> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    if (customer_name.text != "" &&
-                        customer_address.text != "") {
+                    if (customer_name.text != "") {
                       AddItem(
                         {
                           'name': customer_name.text,
-                          'date': DateFormat('dd-MM-yy').format(DateTime.now()),
-                          'time': DateFormat('HH:mm:ss').format(DateTime.now()),
+                          'date': currentDate,
+                          //     DateFormat('dd-MM-yyyy').format(DateTime.now()),
+                          // 'time': DateFormat('HH:mm:ss').format(DateTime.now()),
                           'address': customer_address.text,
                           'items': ItemList,
                           'total': Total_Amount,
@@ -201,7 +236,7 @@ class CreateInvoiceState extends State<CreateInvoice> {
                       print(customer_name.text);
                       print(customer_address.text);
                     } else {
-                      Fluttertoast.showToast(msg: "Enter Name or Address");
+                      Fluttertoast.showToast(msg: "Enter Name");
                     }
                   },
                   child: Text("Generate Invoice"))
@@ -269,9 +304,7 @@ class CreateInvoiceState extends State<CreateInvoice> {
                   ),
                   ElevatedButton(
                       onPressed: () {
-                        if (item_name.text != "" &&
-                            
-                            item_price.text != "") {
+                        if (item_name.text != "" && item_price.text != "") {
                           setState(() {
                             Map<String, String> data = {
                               'item_price': item_price.text,
@@ -283,7 +316,7 @@ class CreateInvoiceState extends State<CreateInvoice> {
                             ItemList.add(data);
                             Total_Amount = Total_Amount +
                                 double.parse(
-                                    "${ double.parse(item_price.text)}");
+                                    "${double.parse(item_price.text)}");
                             print(ItemList);
                             Navigator.pop(context);
                           });

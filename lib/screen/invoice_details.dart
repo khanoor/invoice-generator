@@ -28,6 +28,23 @@ class InvoiceDetailsState extends State<InvoiceDetails> {
     refreshData();
   }
 
+  String currentDate = DateFormat("dd-MM-yyyy").format(DateTime.now());
+  Future<void> PickDate(BuildContext context) async {
+    final DateTime? date = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now().subtract(const Duration(days: 365 * 4)),
+        lastDate: DateTime.now().add(const Duration(days: 90)),
+        builder: (context, child) {
+          return Theme(data: Theme.of(context).copyWith(), child: child!);
+        });
+    if (date != null) {
+      setState(() {
+        currentDate = DateFormat("dd-MM-yyyy").format(date);
+      });
+    }
+  }
+
   void refreshData() {
     final data = box.keys.map((key) {
       final value = box.get(key);

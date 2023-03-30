@@ -169,10 +169,10 @@ class HomeState extends State<Home> {
                               SizedBox(
                                 height: 5,
                               ),
-                              Text(currentItem['time'],
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                  )),
+                              // Text(currentItem['time'],
+                              //     style: TextStyle(
+                              //       fontSize: 16,
+                              //     )),
                             ],
                           ),
                           Spacer(),

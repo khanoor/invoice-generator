@@ -10,7 +10,7 @@ class PdfInvoiceApi {
     final pdf = pw.Document();
 
     final iconImage =
-        (await rootBundle.load('images/11.jpg')).buffer.asUint8List();
+        (await rootBundle.load('images/top.jpeg')).buffer.asUint8List();
 
     // STANDARD Table
     final tableHeaders = [
@@ -46,8 +46,9 @@ class PdfInvoiceApi {
         header: (context) {
           return pw.Image(
                     pw.MemoryImage(iconImage),
-                    // height: 72,
+                    // height: 60,
                     // width: 72,
+                    
                   );
         },
         build: (context) {
@@ -121,10 +122,13 @@ class PdfInvoiceApi {
                 // 4: const pw.FlexColumnWidth(100),
               },
             ),
+            
+           pw.Spacer(),
             pw.SizedBox(height: 1 * PdfPageFormat.mm),
             pw.Divider(),
             pw.SizedBox(height: 1 * PdfPageFormat.mm),
             pw.Container(
+
               padding: pw.EdgeInsets.only(right: 20),
               alignment: pw.Alignment.centerRight,
               child: pw.Text(
