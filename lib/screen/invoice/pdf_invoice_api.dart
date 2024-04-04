@@ -1,9 +1,11 @@
 import 'dart:io';
+
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'file_handle_api.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+
+import 'file_handle_api.dart';
 
 class PdfInvoiceApi {
   static Future<File> generate(var list, List data) async {
@@ -45,11 +47,10 @@ class PdfInvoiceApi {
       pw.MultiPage(
         header: (context) {
           return pw.Image(
-                    pw.MemoryImage(iconImage),
-                    // height: 60,
-                    // width: 72,
-                    
-                  );
+            pw.MemoryImage(iconImage),
+            // height: 60,
+            // width: 72,
+          );
         },
         build: (context) {
           return [
@@ -64,7 +65,7 @@ class PdfInvoiceApi {
                       pw.Text(
                         "${list[0]['name']}",
                         style: pw.TextStyle(
-                            fontSize: 22, fontWeight: pw.FontWeight.bold),
+                            fontSize: 20, fontWeight: pw.FontWeight.bold),
                       ),
                       pw.SizedBox(
                         height: 5,
@@ -73,11 +74,12 @@ class PdfInvoiceApi {
                       pw.SizedBox(
                         height: 5,
                       ),
-                      pw.Text("${list[0]['date']}")
+
                       // - ${list[0]['time']}"),
                     ],
                   ),
-                  // pw.Spacer(),
+                  pw.Spacer(),
+                  pw.Text("${list[0]['date']}"),
                   // pw.Image(
                   //   pw.MemoryImage(iconImage),
                   //   height: 72,
@@ -122,17 +124,16 @@ class PdfInvoiceApi {
                 // 4: const pw.FlexColumnWidth(100),
               },
             ),
-            
-           pw.Spacer(),
+
+            pw.Spacer(),
             pw.SizedBox(height: 1 * PdfPageFormat.mm),
             pw.Divider(),
             pw.SizedBox(height: 1 * PdfPageFormat.mm),
             pw.Container(
-
               padding: pw.EdgeInsets.only(right: 20),
               alignment: pw.Alignment.centerRight,
               child: pw.Text(
-                "Total :${NumberFormat.currency(symbol:'',decimalDigits:1,locale:'Hi').format(num.parse(list[0]['total'].toString()))}",
+                "Total :${NumberFormat.currency(symbol: '', decimalDigits: 1, locale: 'Hi').format(num.parse(list[0]['total'].toString()))}",
                 style:
                     pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold),
               ),

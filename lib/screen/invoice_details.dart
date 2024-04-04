@@ -102,7 +102,10 @@ class InvoiceDetailsState extends State<InvoiceDetails> {
             // opening the pdf file
             FileHandleApi.openFile(pdfFile);
           },
-          child: Icon(Icons.picture_as_pdf_outlined),
+          child: Icon(
+            Icons.picture_as_pdf_outlined,
+            color: Colors.white,
+          ),
         ),
         body: Column(
           children: [
@@ -117,7 +120,7 @@ class InvoiceDetailsState extends State<InvoiceDetails> {
                       Text(
                         "${listData[0]['name']}",
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 18, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
                         height: 5,
@@ -126,17 +129,17 @@ class InvoiceDetailsState extends State<InvoiceDetails> {
                       SizedBox(
                         height: 5,
                       ),
-                      Text("${listData[0]['date']}"
-                      //  - ${listData[0]['time']}"
-                       ),
                     ],
                   ),
                   Spacer(),
-                  Image(
-                    height: 72,
-                    image: AssetImage('images/invoice.png'),
-                    fit: BoxFit.cover,
-                  ),
+                  Text("${listData[0]['date']}"
+                      //  - ${listData[0]['time']}"
+                      ),
+                  // Image(
+                  //   height: 72,
+                  //   image: AssetImage('images/invoice.png'),
+                  //   fit: BoxFit.cover,
+                  // ),
                 ],
               ),
             ),

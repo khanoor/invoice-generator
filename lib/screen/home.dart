@@ -151,7 +151,7 @@ class HomeState extends State<Home> {
                               Text(
                                 currentItem['name'],
                                 style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold),
+                                    fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               SizedBox(
                                 height: 5,
@@ -164,7 +164,7 @@ class HomeState extends State<Home> {
                             children: [
                               Text(currentItem['date'],
                                   style: TextStyle(
-                                    fontSize: 16,
+                                    fontSize: 12,
                                   )),
                               SizedBox(
                                 height: 5,
@@ -177,8 +177,8 @@ class HomeState extends State<Home> {
                           ),
                           Spacer(),
                           Container(
-                            width: 50,
-                            height: 50,
+                            width: 40,
+                            height: 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
                               color: app_color,
